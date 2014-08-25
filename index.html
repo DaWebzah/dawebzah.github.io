@@ -7,7 +7,7 @@
 <meta name="author" content="WEBZAH.com" />
 <link href="http://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet" type="text/css" />
-<link href="http://i.webzah.com/css/wzah.css" rel="stylesheet" />
+<link href="css/wzah_production.css" rel="stylesheet" />
 
 <link rel="shortcut icon" href="favicon.ico" />
 
@@ -19,22 +19,22 @@
 	<div id="intro">
 
         <div class="qitem" title="1">
-            <img src="i/imgs/tp_lt.png" alt="Test 1" title="" width="290" height="290"/>
+            <img src="imgs/tp_lt.png" alt="Test 1" title="" width="290" height="290"/>
             <span class="caption"></span>
         </div>
         
         <div class="qitem" title="2">
-            <img src="i/imgs/tp_rt.png" alt="Test 1" title="" width="290" height="290"/>
+            <img src="imgs/tp_rt.png" alt="Test 1" title="" width="290" height="290"/>
             <span id="trt" class="caption"></span>
         </div>
         
         <div class="qitem" title="3">
-            <img src="i/imgs/bt_lt.png" alt="Test 1" title="" width="290" height="290"/>
+            <img src="imgs/bt_lt.png" alt="Test 1" title="" width="290" height="290"/>
             <span id="blt" class="caption"></span>
         </div>
         
         <div class="qitem" title="4">
-            <img src="i/imgs/bt_rt.png" alt="Test 1" title="" width="290" height="290"/>
+            <img src="imgs/bt_rt.png" alt="Test 1" title="" width="290" height="290"/>
             <span id="brt" class="caption"></span>
         </div>
      
@@ -157,7 +157,7 @@
 
 	</div>
 
-    <div id="cprt"><p>Copyright ©2012  &nbsp; &nbsp; webzah.com &nbsp; &nbsp;All rights reserved</p></div>
+    <div id="cprt"><p>Copyright ©2011  &nbsp; &nbsp; webzah.com &nbsp; &nbsp;All rights reserved</p></div>
 
 </div>
 
@@ -174,9 +174,232 @@
 
 
 
-<script src="http://z.webzah.com/javascript/jquery.min.js,jqt127.sc_n.min.js,jquery.easing.1.3.min.js,wzh-custom.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script src="js/jqt126.sc_n.min.js" type="text/javascript"></script>
+<script src="js/jquery.easing.1.3.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(function() {
+		   $('.tool').width($(window).width());
+
+		$(window).resize(function() {
+		   $('.tool').width($(window).width());
+		});
+
+});
+</script>
+
+<script>
+
+$(function() {
+
+	//Custom settings
+	var style_in = 'easeOutBounce';
+	var style_out = 'jswing';
+	var speed_in = 1000;
+	var speed_out = 300;
+
+	//Calculation for corners
+	var neg = Math.round($('.qitem').width() / 2) * (-1);
+	var pos = neg * (-1);
+	var out = pos * 2;
+
+	$('.qitem').each(function () {
+
+		img = $(this).find('img').attr('src');
+
+		$('img', this).remove();
+		$(this).append('<div class="topLeft"></div><div class="topRight"></div><div class="bottomLeft"></div><div class="bottomRight"></div>');
+		$(this).children('div').css('background-image','url('+ img + ')');
+
+		$(this).find('div.topLeft').css({top:0, left:0, width:pos , height:pos});
+		$(this).find('div.topRight').css({top:0, left:pos, width:pos , height:pos});
+		$(this).find('div.bottomLeft').css({bottom:0, left:0, width:pos , height:pos});
+		$(this).find('div.bottomRight').css({bottom:0, left:pos, width:pos , height:pos});
+
+	}).hover(function () {
+
+		$(this).find('div.topLeft').stop(false, true).animate({top:neg, left:neg}, {duration:speed_out, easing:style_out});
+		$(this).find('div.topRight').stop(false, true).animate({top:neg, left:out}, {duration:speed_out, easing:style_out});
+		$(this).find('div.bottomLeft').stop(false, true).animate({bottom:neg, left:neg}, {duration:speed_out, easing:style_out});
+		$(this).find('div.bottomRight').stop(false, true).animate({bottom:neg, left:out}, {duration:speed_out, easing:style_out});
+
+	},
+
+	function () {
+
+		$(this).find('div.topLeft').stop(false, true).animate({top:0, left:0}, {duration:speed_in, easing:style_in});
+		$(this).find('div.topRight').stop(false, true).animate({top:0, left:pos}, {duration:speed_in, easing:style_in});
+		$(this).find('div.bottomLeft').stop(false, true).animate({bottom:0, left:0}, {duration:speed_in, easing:style_in});
+		$(this).find('div.bottomRight').stop(false, true).animate({bottom:0, left:pos}, {duration:speed_in, easing:style_in});
+
+	}).click(function () {
+		n = $(this).attr('title');
+		$("#scroll").scrollable().seekTo(n);
+	});
+
+		$(".caption").show();
+
+});
+
+</script>
 
 
+
+<script type="text/javascript">
+// initialize scrollable and return the programming API
+var api = $("#scroll").scrollable({
+	items: '#tools',
+	easing: 'easeOutElastic',
+	speed: 600
+
+// use the navigator plugin
+}).navigator().data("scrollable");
+
+
+// this callback does the special handling of the front/intro page
+api.onBeforeSeek(function(e, i) {
+
+	// when on the first item: hide the intro
+	if (i) {
+		$("#intro").hide();
+		$("#thumbs").show();
+		$(".bgd").hide();
+
+		// dirty hack for IE7-. cannot explain
+		if ($.browser.msie && $.browser.version < 8) {
+			$("#intro").hide();
+		}
+		if (i == 1) {
+			$("#first").delay(620).fadeIn("slow");
+			$("#thumbs").css("background-color", "#080");
+		}
+		if (i == 2) {
+			$("#second").delay(620).fadeIn("slow");
+			$("#thumbs").css("background-color", "#ec6900");
+		}
+		if (i == 3) {
+			$("#third").delay(620).fadeIn("slow");
+			$("#thumbs").css("background-color", "#debd03");
+		}
+		if (i == 4) {
+			$("#fourth").delay(620).fadeIn("slow");
+			$("#thumbs").css("background-color", "#36c");
+		}
+		if (i == 5) {
+			$("#fifth").delay(620).fadeIn("slow");
+			$("#thumbs").css("background-color", "#7c06a6");
+		}
+
+	// otherwise show the intro
+	} else {
+		$("#intro").fadeIn(1000);
+		$(".bgd").hide();
+		$("#thumbs").hide();
+	}
+
+	// toggle activity for the intro thumbnail
+	$("#t0").toggleClass("active", i == 0);
+});
+
+// a dedicated click event for the intro thumbnail
+$("#t0").click(function() {
+
+	// seek to the beginning (the hidden first item)
+	$("#scroll").scrollable().begin();
+		$("#thumbs").hide();
+
+});
+
+</script>
+
+<script type="text/javascript">
+
+$(function() {
+
+	$('#Send').click(function() {
+
+			// name validation
+
+			var nameVal = $("#name").val();
+			if(nameVal == '') {
+
+				$("#name_error").html('');
+				$("#name").after('<label class="error" id="name_error">Please enter your name.</label>');
+				return false
+			}
+			else
+			{
+				$("#name_error").html('');
+			}
+
+			/// email validation
+
+			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			var emailaddressVal = $("#email").val();
+
+			if(emailaddressVal == '') {
+				$("#email_error").html('');
+				$("#email").after('<label class="error" id="email_error">Please enter your email address.</label>');
+				return false
+			}
+			else if(!emailReg.test(emailaddressVal)) {
+				$("#email_error").html('');
+				$("#email").after('<label class="error" id="email_error">Enter a valid email address!</label>');
+				return false
+
+			}
+			else
+			{
+				$("#email_error").html('');
+			}
+
+			$.post("frm/processor.php", $("#MYFORM").serialize(),
+
+			 function(response){
+
+			if(response==1)
+			{
+				$("#after_submit").html('');
+				$("#Send").after('<label class="success" id="after_submit">Your message has been sent!</label>');
+				change_captcha();
+				clear_form();
+			}
+			else
+			{
+				$("#after_submit").html('');
+				$("#security_code").after('<label class="error" id="after_submit">Error! Invalid verification code.</label>');
+			}
+
+
+		});
+
+		return false;
+	 });
+
+	 // refresh captcha
+	 $('img#captcha').click(function() {
+
+			change_captcha();
+	 });
+
+	 function change_captcha()
+	 {
+	 	document.getElementById('captcha').src="frm/CaptchaSecurityImages.php?rnd=" + Math.random();
+		$("#security_code").val('');
+	 }
+
+	 function clear_form()
+	 {
+	 	$("#name").val('');
+		$("#email").val('');
+		$("#message").val('');
+	 }
+
+});
+
+</script>
 
 </body>
 </html>

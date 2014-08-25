@@ -29,13 +29,13 @@ a:focus,a:active{outline:none;}
 .qitem {
 	width:290px;
 	height:290px;
-	
+
 	/* required to hide the image after resized */
 	overflow:hidden;
-	
+
 	/* for child absolute position */
 	position:relative;
-	
+
 	/* display div in line */
 	float:left;
 	cursor:pointer
@@ -43,7 +43,7 @@ a:focus,a:active{outline:none;}
 
 	.qitem img {
 		border:0;
-	
+
 		/* allow javascript moves the img position*/
 		position:absolute;
 		z-index:200;
@@ -51,12 +51,12 @@ a:focus,a:active{outline:none;}
 
 	.qitem .caption {
 		position:absolute;
-		z-index:0;	
+		z-index:0;
 		color:#ccc;
 		display:none;
 		padding:10px 20px;
 	background: #090 url(../imgs/nav_btns3.png) no-repeat 0 center;
-	box-shadow: inset 0 0 30px #111;	
+	box-shadow: inset 0 0 30px #111;
 	width:250px;
 	height:270px;
 	overflow:hidden;
@@ -83,7 +83,7 @@ a:focus,a:active{outline:none;}
 		}
 
 		.qitem .caption p {
-			font-size:11px;	
+			font-size:11px;
 			padding:3px 5px 0 8px;
 			margin:0;
 		}
@@ -94,24 +94,24 @@ a:focus,a:active{outline:none;}
 
 .topLeft, .topRight, .bottomLeft, .bottomRight {
 	position:absolute;
-	background-repeat: no-repeat; 
+	background-repeat: no-repeat;
 	float:left;
 }
 
 .topLeft {
-	background-position: top left; 	
-} 
+	background-position: top left;
+}
 
 .topRight {
-	background-position: top right; 
-} 
+	background-position: top right;
+}
 
 .bottomLeft {
-	background-position: bottom left; 
-} 
+	background-position: bottom left;
+}
 
 .bottomRight {
-	background-position: bottom right; 
+	background-position: bottom right;
 }
 /**/
 
@@ -328,7 +328,7 @@ text-shadow: 0 1px 0 #fff;
 #plbgi{
 	background-image:url(../imgs/cwd01.jpg), url(../imgs/wad02.png), url(../imgs/ec03.jpg), url(../imgs/gd04.jpg), url(../imgs/ctc05.jpg);
 	background-repeat:no-repeat;
-	background-position:-9999px -9999px 
+	background-position:-9999px -9999px
 	}
 
 
@@ -386,11 +386,11 @@ input#security_code
 {
 	width:90px;
 	cursor:pointer;
-	background-color:#ccc; 
+	background-color:#ccc;
 }
 #Send:hover
 {
-	background-color:#aaa; 
+	background-color:#aaa;
 }
 
 label.error, label.success
